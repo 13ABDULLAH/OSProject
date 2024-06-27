@@ -7,7 +7,7 @@ Section: 4.
 Team Mates:
 1. Abdullah Alwafi bin Mohd Aminudin 2219713
 2. Abdullah Haris bin Abdul Rashid 2212901
-3. Ahmad Fahmi bin Muhd Zaki 2219371
+3. Ahmad Fahmi bin Muhd Zaki 2219373
 
 ## Rules
 1. You are allowed to have **3 group** members. *Exception* is allowed **IFF (if and only if)** you are allowed to have 4 group members if you are a **multinational** or a **multigender** group. 
