@@ -432,8 +432,9 @@ At the terminal, create a new directory called **myroot**, and run a instance of
 ***Questions:***
 
 1. Check the permission of the files created in myroot, what user and group is the files created in docker container on the host virtual machine? . ***(2 mark)*** 
-  - User ID: codespace
-  - Group ID: codespace
+  - Permission: drwxrwxrwx+
+  - User ID: codespace (1000)
+  - Group ID: codespace (1000)
 ```bash
 total 4
 drwxrwxrwx+ 2 codespace codespace 4096 Jun 27 14:58 myroot
@@ -444,7 +445,21 @@ drwxrwxrwx+ 2 codespace codespace 4096 Jun 27 14:58 myroot
 sudo chown -R codespace:codespace myroot
 
 ```
-yes, 
+yes, here's the code
+
+```bash
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ sudo chown -R codespace:codespace myroot
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ ls -l /workspaces/OSProject/myroot
+total 4
+drwxrwxrwx+ 2 codespace codespace 4096 Jun 27 14:58 myroot
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ ls -la /workspaces/OSProject/myroot
+total 12
+drwxrwxrwx+ 3 codespace codespace 4096 Jun 27 14:58 .
+drwxrwxrwx+ 6 codespace root      4096 Jun 28 14:16 ..
+drwxrwxrwx+ 2 codespace codespace 4096 Jun 27 14:58 myroot
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ id
+uid=1000(codespace) gid=1000(codespace) groups=1000(codespace),106(ssh),107(docker),989(pipx),990(python),991(oryx),992(golang),993(sdkman),994(rvm),995(php),996(conda),997(nvs),998(nvm),999(hugo)
+```
 
 ## You are on your own, create your own static webpage
 
@@ -472,8 +487,8 @@ docker run --detach -v /workspaces/OSProject/webpage:/usr/local/apache2/htdocs/ 
 
 1. What is the permission of folder /usr/local/apache/htdocs and what user and group owns the folder? . ***(2 mark)***
   - Permission: -rw-rw-rw-
-  - User ID: codespace
-  - Group ID: codespace
+  - User ID: codespace (1000)
+  - Group ID: codespace (1000)
 ```bash
 @13ABDULLAH ➜ /workspaces/OSProject/webpage (main) $ ls -l
 total 4
