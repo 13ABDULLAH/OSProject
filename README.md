@@ -7,7 +7,7 @@ Section: 4.
 Team Mates:
 1. Abdullah Alwafi bin Mohd Aminudin 2219713
 2. Abdullah Haris bin Abdul Rashid 2212901
-3. Ahmad Fahmi bin Muhd Zaki 2219373
+3. Ahmad Fahmi bin Mohd Zaki 2219373
 
 ## Rules
 1. You are allowed to have **3 group** members. *Exception* is allowed **IFF (if and only if)** you are allowed to have 4 group members if you are a **multinational** or a **multigender** group. 
@@ -431,14 +431,20 @@ At the terminal, create a new directory called **myroot**, and run a instance of
 
 ***Questions:***
 
-1. Check the permission of the files created in myroot, what user and group is the files created in docker container on the host virtual machine? . ***(2 mark)*** __Fill answer here__.
+1. Check the permission of the files created in myroot, what user and group is the files created in docker container on the host virtual machine? . ***(2 mark)*** 
+  - User ID: codespace
+  - Group ID: codespace
+```bash
+total 4
+drwxrwxrwx+ 2 codespace codespace 4096 Jun 27 14:58 myroot
+```
 2. Can you change the permission of the files to user codespace.  You will need this to be able to commit and get points for this question. ***(2 mark)***
 ```bash
 //use sudo and chown
 sudo chown -R codespace:codespace myroot
 
 ```
-*** __Fill answer here__.***
+yes, 
 
 ## You are on your own, create your own static webpage
 
@@ -464,9 +470,20 @@ docker run --detach -v /workspaces/OSProject/webpage:/usr/local/apache2/htdocs/ 
 
 ***Questions:***
 
-1. What is the permission of folder /usr/local/apache/htdocs and what user and group owns the folder? . ***(2 mark)*** __Fill answer here__.
-2. What port is the apache web server running. ***(1 mark)*** __Fill answer here__.
-3. What port is open for http protocol on the host machine? ***(1 mark)*** __Fill answer here__.
+1. What is the permission of folder /usr/local/apache/htdocs and what user and group owns the folder? . ***(2 mark)***
+  - Permission: -rw-rw-rw-
+  - User ID: codespace
+  - Group ID: codespace
+```bash
+@13ABDULLAH ➜ /workspaces/OSProject/webpage (main) $ ls -l
+total 4
+-rw-rw-rw- 1 codespace codespace 353 Jun 28 14:00 index.html
+
+```
+2. What port is the apache web server running. ***(1 mark)*** 
+  - 80
+3. What port is open for http protocol on the host machine? ***(1 mark)*** 
+  - 8080
 
 ## Create SUB Networks
 
@@ -476,7 +493,7 @@ docker run --detach -v /workspaces/OSProject/webpage:/usr/local/apache2/htdocs/ 
 ## STEP 1:
 ## Create Networks ##
 docker network create bluenet
-docker network create rednet`
+docker network create rednet
 
 ## STEP 2: (automatically running)
 ## Create (1) Container in background called "c1" running busybox image ##
@@ -485,11 +502,30 @@ docker run -itd --net rednet --name c2 busybox sh
 ```
 ***Questions:***
 
-1. Describe what is busybox and what is command switch **--name** is for? . ***(2 mark)*** __Fill answer here__.
-2. Explore the network using the command ```docker network ls```, show the output of your terminal. ***(1 mark)*** __Fill answer here__.
-3. Using ```docker inspect c1``` and ```docker inspect c2``` inscpect the two network. What is the gateway of bluenet and rednet.? ***(1 mark)*** __Fill answer here__.
-4. What is the network address for the running container c1 and c2? ***(1 mark)*** __Fill answer here__.
-5. Using the command ```docker exec c1 ping c2```, which basically tries to do a ping from container c1 to c2. Are you able to ping? Show your output . ***(1 mark)*** __Fill answer here__.
+1. Describe what is busybox and what is command switch **--name** is for? . ***(2 mark)*** 
+  - To assign a custom name to a container. This allows us to refer to the container by a specific, meaningful name instead of the default container ID, which is a long, random string.
+2. Explore the network using the command ```docker network ls```, show the output of your terminal. ***(1 mark)***
+```bash
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+ba4a0b0b61db   bluenet   bridge    local
+ac3ddcf41e9c   bridge    bridge    local
+b7d3e57ff267   host      host      local
+33165ba848f2   none      null      local
+f9ebfb3b472c   rednet    bridge    local
+```
+3. Using ```docker inspect c1``` and ```docker inspect c2``` inscpect the two network. What is the gateway of bluenet and rednet.? ***(1 mark)***
+  - bluenet: "Gateway": "172.18.0.1"
+  - rednet: "Gateway": "172.19.0.1"
+4. What is the network address for the running container c1 and c2? ***(1 mark)*** 
+  - bluenet: "IPAddress": "172.18.0.2"
+  - rednet: "IPAddress": "172.19.0.2"
+5. Using the command ```docker exec c1 ping c2```, which basically tries to do a ping from container c1 to c2. Are you able to ping? Show your output . ***(1 mark)*** 
+  - No
+```bash
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ docker exec c1 ping c2
+ping: bad address 'c2'
+```
 
 ## Bridging two SUB Networks
 1. Let's try this again by creating a network to bridge the two containers in the two subnetworks
@@ -501,8 +537,15 @@ docker exec c1 ping c2
 ```
 ***Questions:***
 
-1. Are you able to ping? Show your output . ***(1 mark)*** __Fill answer here__.
-2. What is different from the previous ping in the section above? ***(1 mark)*** __Fill answer here__.
+1. Are you able to ping? Show your output . ***(1 mark)***
+  - yes!
+```bash
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ docker exec c1 ping c2
+PING c2 (172.20.0.3): 56 data bytesc
+```
+2. What is different from the previous ping in the section above? ***(1 mark)*** 
+  - the previous ping shows bad address since there is no bridgenet between c1 and c2, while for this ping, we have created a bridgenet for c1 to ping c2, so the ping is successful
+
 
 ## Intermediate Level (10 marks bonus)
 
