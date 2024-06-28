@@ -714,6 +714,3 @@ You have now set up a Node.js application in a Docker container on nodejsnet net
 2. Check your repository link, to see if all the files and answers are included in the repository. 
 3. Submit through italeem, by providing the link to your repository.
 4. Due by ***AS STATED IN ITALEEM SYSTEM***
-5. 
-
-
