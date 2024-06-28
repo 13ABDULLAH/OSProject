@@ -703,7 +703,14 @@ You have now set up a Node.js application in a Docker container on nodejsnet net
 
 ***Questions:***
 
-1. What is the output of step 5 above, explain the error? ***(1 mark)*** __Fill answer here__.
+1. What is the output of step 5 above, explain the error? ***(1 mark)***
+
+ Cannot GET /
+The error "Cannot GET /" typically means:
+
+The Node.js application running on port 3000 received a request for the root endpoint (/), which is not defined in your application routes.
+Instead of /, you intended to access /random, but the server did not have a route configured to handle this request correctly.
+
 2. Show the instruction needed to make this work. ***(1 mark)*** __Fill answer here__.
 
 
