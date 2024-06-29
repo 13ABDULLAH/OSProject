@@ -705,15 +705,17 @@ You have now set up a Node.js application in a Docker container on nodejsnet net
 
 1. What is the output of step 5 above, explain the error? ***(1 mark)***
 
- Cannot GET /
-The error "Cannot GET /" typically means:
+```bash
+@MentosTerbakar ➜ /workspaces/OSProject (main) $ curl http://localhost:3000/random
+curl: (7) Failed to connect to localhost port 3000: Connection refused
+```
+  - This error occurs because the Node.js container on nodejsnet cannot reach the MySQL container on mysqlnet as they are on separate networks.
 
-The Node.js application running on port 3000 received a request for the root endpoint (/), which is not defined in our application routes.
-Instead of /, we intended to access /random, but the server did not have a route configured to handle this request correctly.
+2. Show the instruction needed to make this work. ***(1 mark)*** 
 
-2. Show the instruction needed to make this work. ***(1 mark)*** __Fill answer here__.
-
-
+  - We need to connect both containers to each other’s networks:
+```bash
+```
 
 ## What to submit
 
