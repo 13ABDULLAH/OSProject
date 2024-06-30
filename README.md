@@ -704,9 +704,8 @@ You have now set up a Node.js application in a Docker container on nodejsnet net
 ***Questions:***
 
 1. What is the output of step 5 above, explain the error? ***(1 mark)***
-
 ```bash
-@MentosTerbakar ➜ /workspaces/OSProject (main) $ curl http://localhost:3000/random
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ curl http://localhost:3000/random
 curl: (7) Failed to connect to localhost port 3000: Connection refused
 ```
   - This error occurs because the Node.js container on nodejsnet cannot reach the MySQL container on mysqlnet as they are on separate networks.
@@ -715,7 +714,10 @@ curl: (7) Failed to connect to localhost port 3000: Connection refused
 
   - We need to connect both containers to each other’s networks:
 ```bash
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ docker network connect mysqlnet nodejs-container
+@13ABDULLAH ➜ /workspaces/OSProject (main) $ docker network connect nodejsnet mysql-container
 ```
+  - After bridging the network, the 'curl' command should work correctly, retrieving a random row from the MySQL database.
 
 ## What to submit
 
